@@ -1,0 +1,61 @@
+{% extends 'main.html' %}
+
+{% block content %}
+    <main class="page-main">
+        <div class="uk-grid" data-uk-grid>
+            <div class="uk-width-2-3@l">
+                <div class="widjet --filters">
+                    <div class="widjet__head">
+                        <h3 class="uk-text-lead">News</h3>
+                    </div>
+                </div>
+                <div class="uk-width">
+                    <form class="header__search" method="GET">
+                        <div class="search">
+                            <div class="search__input">
+                                <input
+                                        type="search"
+                                        name="search"
+                                        placeholder="Search"
+                                />
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <ul class="uk-subnav uk-subnav-pill">
+                    <li class="uk-active" data-uk-filter-control>
+                        <a href="{% url 'news' %}">All</a>
+                    </li>
+                    {% for i in name %}
+                        <li data-uk-filter-control>
+                            <a href="{% url 'news' %}?q={{ i.name }}">{{ i.name }}</a>
+                        </li>
+                    {% endfor %}
+                </ul>
+                {% for i in data %}
+                    <div class="game-card --horizontal --small">
+                        <div class="game-card --horizontal --small">
+                            <div class="game-card__box">
+                                <div class="game-card__media">
+                                    <img src="{{ i.urlToImage }}" alt="Game Name"
+                                    />
+                                </div>
+                                <div class="game-card__info">
+
+                                    <p class="game-card__title">{{ i.title }}</p>
+                                    <div class="game-card__discussion">
+                                        {{ i.description }}
+                                    </div>
+                                </div>
+                                <div class="game-card__more">
+                                    <a href="{{ i.url }}" target="_blank"><i class="ico_more"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+
+        </div>
+    </main>
+{% endblock %}

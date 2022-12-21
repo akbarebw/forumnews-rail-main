@@ -1,0 +1,38 @@
+{% extends 'main.html' %}
+{% load static %}
+{% block content %}
+    <main class="page-main">
+        <div class="uk-width-3-3@l">
+            <div class="form-login__box">
+                {% if users.id %}
+                    <div class="uk-heading-line uk-text-center">
+                        <span>Update profile</span>
+                    </div>
+                {% else %}
+                    <div class="uk-heading-line uk-text-center">
+                        <span>Create profile</span>
+                    </div>
+                {% endif %}
+                <form class="form" action="" method="POST" enctype="multipart/form-data">
+                    {% csrf_token %}
+
+                    {% for field in form %}
+                        <div class="uk-margin">
+                            <label>{{ field.label }}</label>
+                            <div class="uk-margin">{{ field }}</div>
+                        </div>
+                    {% endfor %}
+                    <div class="uk-margin">
+                        <button class="uk-button uk-button-danger" type="submit"
+                        >Submit
+                        </button
+                        >
+                        <a class="uk-button btn-danger" href="{% url 'home' %}"
+                        >Cancel</a
+                        >
+                    </div>
+                </form>
+            </div>
+        </div>
+    </main>
+{% endblock %}

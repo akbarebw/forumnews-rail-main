@@ -1,0 +1,44 @@
+{% extends 'main.html' %}
+
+{% block content %}
+    <main class="page-main">
+        <div class="uk-grid" data-uk-grid>
+            <div class="uk-width-2-3@l">
+                <div class="widjet --filters">
+                    <div class="widjet__head">
+                        <h3 class="uk-text-lead">Community</h3>
+                    </div>
+                    <div class="uk-width-1-1">
+                        <form class="header__search" method="GET" action="{% url 'home' %}">
+                            <div class="search">
+                                <div class="search__input">
+                                    <input
+                                            type="search"
+                                            name="q"
+                                            placeholder="Search"
+                                    />
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <ul class="uk-subnav uk-subnav-pill">
+                        <li class="uk-active" data-uk-filter-control>
+                            <a href="{% url 'home' %}">All</a>
+                        </li>
+                        {% for topic in topics %}
+                            <li data-uk-filter-control>
+                                <a href="{% url 'home' %}?q={{ topic.name }}">{{ topic.name }}</a>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                    <a class="creat-list-btn" href="{% url 'create-room' %}">
+                        <i class="ico_add-square"></i
+                        ><span>Create New discussion</span>
+                    </a>
+                </div>
+                {% include 'base/component/room_component.html' %}
+            </div>
+            {% include 'base/component/discussion_component.html' %}
+        </div>
+    </main>
+{% endblock %}

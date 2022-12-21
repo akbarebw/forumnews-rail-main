@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <title>Diss-Cuss - Join now and discuss together!</title>
+    <meta content="Templines" name="author"/>
+    <meta content="TeamHost" name="description"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta name="HandheldFriendly" content="true"/>
+    <meta name="format-detection" content="telephone=no"/>
+    <meta content="IE=edge" http-equiv="X-UA-Compatible"/>
+    <link
+            rel="shortcut icon"
+            href="{% static 'assets/img/favicon.png' %}"
+            type="image/x-icon"
+    />
+    <link rel="stylesheet" href="{% static 'assets/css/libs.min.css' %}"/>
+    <link rel="stylesheet" href="{% static 'assets/css/main.css' %}"/>
+
+    <link
+            href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap"
+            rel="stylesheet"
+    />
+    <link
+            href="https://fonts.googleapis.com/css2?family=Marcellus&display=swap"
+            rel="stylesheet"
+    />
+</head>
+
+<body class="page-chats">
+<input id="toggle" type="checkbox"/>
+<script type="text/javascript">
+    document.getElementById("toggle").addEventListener("click", function () {
+        document.getElementsByTagName("body")[0].classList.toggle("dark-theme");
+    });
+</script>
+
+<!-- Loader-->
+<div id="page-preloader">
+    <div class="preloader-1">
+        <div class="loader-text">Loading</div>
+        <span class="line line-1"></span>
+        <span class="line line-2"></span>
+        <span class="line line-3"></span>
+        <span class="line line-4"></span>
+        <span class="line line-5"></span>
+        <span class="line line-6"></span>
+        <span class="line line-7"></span>
+        <span class="line line-8"></span>
+        <span class="line line-9"></span>
+    </div>
+</div>
+<!-- Loader end-->
+
+
+{% if messages %}
+    <ul class="messages">
+        {% for messages in messages %}
+            <li>{{ messages }}</li>
+        {% endfor %}
+    </ul>
+{% endif %}
+<div class="page-wrapper">
+    <header class="page-header">
+        <div class="page-header__inner">
+            <div class="page-header__sidebar">
+                <div class="page-header__menu-btn">
+                    <button class="menu-btn ico_menu is-active"></button>
+                </div>
+                <div class="page-header__logo">
+                    <img src="{% static 'assets/img/logo.png' %}" alt="logo"/><span
+                        class="page-header__logo_text"
+                >Diss-Cuss</span
+                >
+                </div>
+            </div>
+            <div class="page-header__content">
+
+                    <div class="page-header__search">
+
+                    </div>
+
+                {% if request.user.is_authenticated %}
+                    <div class="user-item --active">
+                        <div class="page-header__action">
+                            <a href="{% url 'user-profile' user.id %}">{{ request.user.username }}</a>
+                        </div>&nbsp;&nbsp;&nbsp;
+                        <div class="user-item__avatar">
+                            <a href="{% url 'user-profile' user.id %}"><img src="{{request.user.avatar.url}}"
+                                                                            alt="user"/></a>
+                        </div>
+                    </div>
+                {% else %}
+                    <div class="page-header__action">
+                        <a href="{% url 'login' %}">Login</a>
+                    </div>
+                {% endif %}
+            </div>
+    </header>
+    <div class="page-content">
+        <aside class="sidebar is-show" id="sidebar">
+            <div class="sidebar-box">
+                <ul class="uk-nav">
+                    {% if request.user.is_authenticated %}
+                        <li>
+                            <a href="{% url 'home' %}"><i class="ico_home"></i><span>Home</span></a>
+                        </li>
+                        <li>
+                            <a href="{% url 'news' %}"><i class="ico_gallery"></i><span>News</span></a>
+                        </li>
+                        <li class="uk-nav-header">Account</li>
+                        <li>
+                            <a href="{% url 'user-profile' user.id %}"
+                            ><i class="ico_profile"></i><span>Profile</span></a
+                            >
+                        </li>
+                        <li>
+                            <a href="{% url 'bookmarked_items' %}"
+                            ><i class="ico_favourites"></i><span>Favourites</span></a
+                            >
+                        </li>
+                        <li>
+                            <a href="{% url 'logout' %}"
+                            ><i class="ico_report"></i><span>Logout</span></a
+                            >
+                        </li>
+                    {% else %}
+                        <li>
+                            <a href="{% url 'home' %}"><i class="ico_home"></i><span>Home</span></a>
+                        </li>
+                        <li>
+                            <a href="{% url 'news' %}"><i class="ico_gallery"></i><span>News</span></a>
+                        </li>
+                    {% endif %}
+                </ul>
+            </div>
+        </aside>
+        {% block content %}
+        {% endblock %}
+    </div>
+
+
+    <script src="{% static 'assets/js/libs.js' %}"></script>
+    <script src="{% static 'assets/js/main.js' %}"></script>
+</body>
+</html>

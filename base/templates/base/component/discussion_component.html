@@ -1,0 +1,30 @@
+{% load static %}
+<div class="uk-width-1-3@l">
+    <div class="widjet__head">
+        <h3 class="uk-text-lead">Recent activity</h3>
+    </div>
+    {% for message in room_messages %}
+        <div class="widjet__body">
+            <div class="user-item --active">
+
+                <div class="user-item__avatar">
+                    <img src="{{ message.user.avatar.url }}" alt="user"/>
+                </div>
+                <div class="user-item__box">
+                    <div class="user-item__name">
+                        <a href="{% url 'user-profile' message.user.id %}">@{{ message.user.username }}</a>
+                    </div>
+                    <div class="user-item__playing">
+                        Chat in<b><a href="{% url 'room' message.room.id %}">{{ message.room }}</a></b>
+                    </div>
+                    <div class="user-item__playing">{{ message.created|timesince }} ago</div>
+                </div>
+{#                {% if request.user == message.user %}#}
+{#                    <div class="user-item">#}
+{#                        <a class="ico_close-circle" href="{% url 'user-profile' message.user.id %}"></a>#}
+{#                    </div>#}
+{#                {% endif %}#}
+            </div>
+        </div>
+    {% endfor %}
+</div>

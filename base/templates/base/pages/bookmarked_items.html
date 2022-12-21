@@ -1,0 +1,47 @@
+{% extends 'main.html' %}
+
+{% block content %}
+    <main class="page-main">
+        <div class="uk-grid" data-uk-grid>
+            <div class="uk-width-2-3@l">
+                <h3 class="uk-text-lead">bookmark room</h3>
+
+                {% for room in bookmarked_rooms %}
+                    <div class="game-card --horizontal --small">
+                        <div class="game-card --horizontal --small">
+                            <div class="game-card__box">
+                                <div class="game-card__media">
+                                    <a href="{% url 'user-profile' room.room.host.id %}"
+                                    ><img src="{{ room.room.host.avatar.url }}" alt="Game Name"
+                                    /></a>
+                                </div>
+                                <div class="game-card__info">
+                                    <div class="game-card__discussion">
+                                        {{ room.room.created|timesince }} ago
+                                    </div>
+                                    <a class="game-card__title" href="{% url 'room' room.room_id %}">
+                                        {{ room.room.name }}</a
+                                    >
+                                    <div class="game-card__discussion">
+                                        discussion threads by
+                                        <b><a href="{% url 'user-profile' room.room.host.id %}">@{{ room.room.host.username }}</a></b>
+                                    </div>
+                                    <div class="game-card__bottom">
+                                        <div class="game-card__platform">
+                                            <p class="text-border">{{ room.room.topic.name }}</p>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="game-card__more">
+                                    <a href="{% url 'room' room.room.id %}"><i class="ico_more"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+
+        </div>
+    </main>
+{% endblock %}

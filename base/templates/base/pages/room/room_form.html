@@ -1,0 +1,49 @@
+{% extends 'main.html' %}
+{% load static %}
+{% block content %}
+    <main class="page-main">
+        <div class="uk-width-3-3@l">
+            <div class="form-login__box">
+            {% if room.id %}
+                <div class="uk-heading-line uk-text-center">
+                    <span>Update disscussion</span>
+                </div>
+            {% else %}
+                <div class="uk-heading-line uk-text-center">
+                    <span>Create disscussion</span>
+                </div>
+            {% endif %}
+                <form class="form" action="#" method="POST">
+                    {% csrf_token %}
+                    <div class="uk-margin">
+                        <label>disscussion Topic</label>
+                            <input required type="text" name="topic" value="{{ room.topic.name }}" list="topic-list">
+                            <datalist id="topic-list">
+                                <select id="room_topic">
+                                    {% for topic in topics %}
+                                        <option val ue="{{ topic.name }}">{{ topic.name }}</option>
+                                    {% endfor %}
+                                </select>
+                            </datalist>
+                    </div>
+                    <div class="uk-margin">
+                        <label>Name disscussion</label>
+                        {{ form.name }}
+                    </div>
+                    <div class="uk-margin">
+                        <label>Desc disscussion</label>
+                        {{ form.description }}
+                    </div>
+                    <div class="uk-margin">
+                        <button class="uk-button uk-button-danger" type="submit"
+                        >Submit</button
+                        >
+                        <a class="uk-button btn-danger" href="{% url 'home' %}"
+                        >Cancel</a
+                        >
+                    </div>
+                </form>
+            </div>
+        </div>
+    </main>
+{% endblock %}

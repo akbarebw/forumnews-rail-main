@@ -1,0 +1,49 @@
+{% extends 'main.html' %}
+{% load static %}
+{% block content %}
+    <main class="page-main">
+        <div class="uk-grid" data-uk-grid>
+            <div class="uk-width-2-3@l">
+                <div class="widjet --profile">
+                    <div class="widjet__head">
+                        <h3 class="uk-text-lead">Profile</h3>
+                    </div>
+                    <div class="widjet__body">
+                        <div class="user-info">
+                            <div class="user-info__avatar">
+                                <img src="{{user.avatar.url}}" alt="profile"/>
+                            </div>
+                            <div class="user-info__box">
+                                <div class="user-info__title">{{ user.username }}</div>
+                                <div class="user-info__text">Joined: {{ user.date_joined }}</div>
+                            </div>
+                        </div>
+                        {% if request.user == user %}
+                            <a class="uk-button uk-button-danger" href="{% url 'update-user' user.id %}"
+                            ><i class="ico_edit"></i
+                            ><span class="uk-margin-small-left">Edit Profile</span></a
+                            >
+                        {% endif %}
+
+                    </div>
+                </div>
+                <div class="widjet --bio">
+                    <div class="widjet__head">
+                        <h3 class="uk-text-lead">Bio</h3>
+                    </div>
+                    <div class="widjet__body">
+                  <span>{{user.bio}}</span>
+                    </div>
+                </div>
+                <div class="widjet --activity">
+                    <div class="widjet__head">
+                        <h3 class="uk-text-lead">Group by <a href="{% url 'user-profile' user.id %}">@{{ user.username }}</a></h3>
+                    </div>
+                    {% include 'base/component/room_component.html' %}
+                </div>
+            </div>
+            {% include 'base/component/discussion_component.html' %}
+        </div>
+        </div>
+    </main>
+{% endblock %}

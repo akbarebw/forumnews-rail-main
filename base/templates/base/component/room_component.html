@@ -1,0 +1,35 @@
+{% load static %}
+{% for room in rooms %}
+    <div class="game-card --horizontal --small">
+        <div class="game-card --horizontal --small">
+            <div class="game-card__box">
+                <div class="game-card__media">
+                    <a href="{% url 'user-profile' room.host.id %}"
+                    ><img src="{{ room.host.avatar.url }}" alt="Game Name"
+                    /></a>
+                </div>
+                <div class="game-card__info">
+                    <div class="game-card__discussion">
+                        {{ room.created|timesince }} ago
+                    </div>
+                    <a class="game-card__title" href="{% url 'room' room.id %}">
+                        {{ room.name }}</a
+                    >
+                    <div class="game-card__discussion">
+                        discussion threads by
+                        <b><a href="{% url 'user-profile' room.host.id %}">@{{ room.host.username }}</a></b>
+                    </div>
+                    <div class="game-card__bottom">
+                        <div class="game-card__platform">
+                            <p class="text-border">{{ room.topic.name }}</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="game-card__more">
+                    <a href="{% url 'room' room.id %}"><i class="ico_more"></i></a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endfor %}
